@@ -1,0 +1,17 @@
+services:
+  task_app_back:
+    container_name: "task_app"
+    ports:
+      - "8000:8000"
+    build:
+      context: .
+    networks:
+      - myNetwork
+    env_file:
+      - .env
+
+
+
+networks:
+  myNetwork:
+    external: true
