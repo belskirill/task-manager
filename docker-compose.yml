@@ -10,7 +10,26 @@ services:
     env_file:
       - .env
 
+  booking_celery_worker_service:
+    container_name: 'task_celery_worker'
+    build:
+      context: .
+    networks:
+      - myNetwork
+    env_file:
+      - .env
+    command: "celery --app=src.tasks.celery_app:celery_instance worker -l INFO"
 
+
+  booking_celery_beat_service:
+    container_name: 'task_celery_beat'
+    build:
+      context: .
+    networks:
+      - myNetwork
+    env_file:
+      - .env
+    command: "celery --app=src.tasks.celery_app:celery_instance beat -l INFO"
 
 networks:
   myNetwork:
